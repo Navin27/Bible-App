@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<title> Welcome </title>
+	<link rel='stylesheet' href= '/stylesheets/style.css' />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	</head>
+	<body>
+		<h1>Welcome <%= title %> </h1>
+    <p> Search Bible Book </p>
+		<div id="books">
+			<form method= "get " action="/books">
+			<div>
+				<select name = 'book_name' id='book_name'>
+					<option class = "form-control selectpicker" > Select Book Name</option>
+					<% for(var i=0; i < chapters.length; i++) { %>
+						 <option> <%= chapters[i] %></option>
+						<% } %>
+				</select>
+			</div>
+			<div>
+				<select name = 'chapters' id='chapters'>
+						<option> Choose Chapter </option>
+				</select>
+				<!-- <input type="text" name="chapters" placeholder="Enter chapters No" required="Chapters "> -->
+			</div>
+			<div>
+				<input type="submit" name="find" value="Find Book">
+			</div>
+			</form>
+		</div>
+		<script>
+		$(document).ready(function() {
+					var book_name;
+					$('#book_name').change(function() {
+						book_name = $(this).val();
+						console.log(book_name);
+						$.ajax({
+							 url: 'http://localhost:3000/list?book_name='+book_name,
+							 dataType: "json",
+							 success: function(data) {
+									 $.each(data, function (k,v){
+										 var el = $("<option value='" +k+ "'>" + v + "</option>");
+										 $(el).remove();
+										 $(el).appendTo("#chapters");
+										  });
+							 },
+							 error: function(jqXHR, textStatus, errorThrown) {
+									 alert('error ' + textStatus + " " + errorThrown);
+							 }
+					 });
+					})
+		});
+		</script>
+</body>
+</html>

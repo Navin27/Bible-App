@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="latin1">
+	<title>Verse</title>
+	<link rel='stylesheet' href= '/stylesheets/style.css' />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	</head>
+	<body>
+	<div class = 'container'>
+		<h1>Welcome <%= title %></h1>
+		<h3>The verse are</h3>
+		<ol class="list-group-item">
+      <% for(var i=0; i < values.length; i++) { %>
+         <li class="list-group-item"> <%= i+1 +'. '+values[i] %></li>
+    		<% } %>
+		</ol>
+	</div>
+	</body>
+</html>
