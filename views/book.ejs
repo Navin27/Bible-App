@@ -22,25 +22,33 @@
 				<select name = 'chapters' id='chapters'>
 						<option> Choose Chapter </option>
 				</select>
-				<!-- <input type="text" name="chapters" placeholder="Enter chapters No" required="Chapters "> -->
 			</div>
 			<div>
-				<input type="submit" name="find" value="Find Book">
+				<select name = 'verse' id='verse'>
+						<option> Choose Verse </option>
+				</select>
+			</div>
+			<div>
+				<input type="submit" name="find" value="Find All Verse" id= "find_book">
 			</div>
 			</form>
+			<div>
+				<p id='pverse'>Verse Display Here :</p>
+			</div>
 		</div>
 		<script>
 		$(document).ready(function() {
 					var book_name;
+					var chapters ;
+					var verse;
 					$('#book_name').change(function() {
 						book_name = $(this).val();
-						console.log(book_name);
 						$.ajax({
 							 url: 'http://localhost:3000/list?book_name='+book_name,
 							 dataType: "json",
 							 success: function(data) {
 									 $.each(data, function (k,v){
-										 var el = $("<option value='" +k+ "'>" + v + "</option>");
+										 var el = $("<option value='"  + k + "'>" + v + "</option>");
 										 $(el).remove();
 										 $(el).appendTo("#chapters");
 										  });
@@ -49,8 +57,39 @@
 									 alert('error ' + textStatus + " " + errorThrown);
 							 }
 					 });
-					})
+					})		
+
+		$('#chapters').change(function(){
+			let book_name = $('#book_name :selected').text();
+			let chapters = $('#chapters :selected').text();
+			console.log('book_name:',book_name);
+			console.log('chapters:',chapters);
+			let verseurl = "http://localhost:3000/getverse?book_name="+book_name+"&chapter="+chapters;
+					fetch(verseurl).then(function(response) {
+						response.json().then(function(data){
+							verse = Object.values(data.chapters[chapters]);
+							let verse_data = Object.keys(data.chapters[chapters]);
+							$.each(verse_data, function (k,v){
+								var el = $("<option value='"  + k + "'>" + v + "</option>");
+								$(el).remove();
+								$(el).appendTo("#verse");
+							});
+						})
+					},
+					function(err) {
+						console.log(err);
+					});
+			 });
+		$('#verse').change(function(){
+			let vers = $(this).val();
+			$('#pverse').text(Object.values(verse[vers]));
+			
 		});
+	});
+		
 		</script>
+		<div class=" data_table" id = " data_table">
+
+		</div>
 </body>
 </html>

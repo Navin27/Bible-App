@@ -12,8 +12,8 @@ var app = express();
 var mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
-//mongoose.connect('mongodb://localhost:27017/Bible')
-mongoose.connect('mongodb:navin:navin@2781@ds143971.mlab.com:43971/bible')
+mongoose.connect('mongodb://localhost:27017/Bible')
+//mongoose.connect('mongodb:navin:navin@2781@ds143971.mlab.com:43971/bible')
   .then(() =>  console.log('connection succesful'))
   .catch((err) => console.error(err));
 
