@@ -1,10 +1,11 @@
-var createError = require('http-errors');
+var createError = require('http-errors'); 
 var express = require('express');
 var path = require('path');
-var cookieParser = require('cookie-parser');
+var cookieParser = require('cookie-parser');//for cookies thing
 var logger = require('morgan');
 var bodyParser = require('body-parser');
 
+/*index router*/
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
