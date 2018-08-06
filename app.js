@@ -9,8 +9,8 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var app = express();
-var mongoose = require('mongoose');
 
+var mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost:27017/Bible')
 //mongoose.connect('mongodb:navin:navin@2781@ds143971.mlab.com:43971/bible')
@@ -18,8 +18,8 @@ mongoose.connect('mongodb://localhost:27017/Bible')
   .catch((err) => console.error(err));
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views')); //giving path to views 
+app.set('view engine', 'ejs'); //including ejs to view engine
 
 app.use(logger('dev'));
 app.use(express.json());
